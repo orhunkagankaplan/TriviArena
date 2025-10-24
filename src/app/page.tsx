@@ -1,3 +1,7 @@
+// app/page.tsx (veya app/triviarena/page.tsx)
+import '../globals.css';  // <-- bunu en başa ekle
+import React, { useState, useEffect } from 'react';
+import { Trophy, Brain, Gamepad2, DollarSign, Clock, Users, Zap, Target, Copy, Check, Sparkles, TrendingUp, Crown } from 'lucide-react';
 "use client";
 import React, { useState, useEffect } from 'react';
 import { Trophy, Brain, Gamepad2, DollarSign, Clock, Users, Zap, Target, Copy, Check, Sparkles, TrendingUp, Crown } from 'lucide-react';
