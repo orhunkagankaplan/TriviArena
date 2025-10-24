@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Claude stiline benzer genel ayarlar */
+body {
+  @apply bg-gradient-to-b from-slate-900 via-gray-900 to-black text-white min-h-screen;
+}
+
+button {
+  @apply rounded-2xl px-4 py-2 font-semibold transition-all;
+}
+
+button:hover {
+  @apply scale-105 shadow-lg;
+}
