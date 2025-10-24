@@ -1,8 +1,9 @@
+/* app/globals.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* opsiyonel body stili */
+/* Ekstra global stiller */
 body {
-  @apply bg-slate-950 text-white;
+  font-family: 'Inter', sans-serif;
 }
