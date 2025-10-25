@@ -1,22 +1,17 @@
 {
   "name": "triviarena",
   "version": "1.0.0",
-  "description": "Skill-based quiz battles with real stakes on Base blockchain",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "next start"
   },
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "next": "^14.0.0",
-    "lucide-react": "^0.263.1",
-    "wagmi": "^2.0.0",
-    "viem": "^2.0.0",
-    "@rainbow-me/rainbowkit": "^2.0.0"
+    "lucide-react": "^0.263.1"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
@@ -25,20 +20,5 @@
     "tailwindcss": "^3.3.0",
     "autoprefixer": "^10.4.0",
     "postcss": "^8.4.0"
-  },
-  "keywords": [
-    "base",
-    "blockchain",
-    "quiz",
-    "trivia",
-    "web3",
-    "gaming",
-    "defi"
-  ],
-  "author": "TriviArena Team",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/orhunkagankaplan/triviarena"
   }
 }
