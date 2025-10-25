@@ -1,8 +1,8 @@
 'use client'
+
 import React, { useState, useEffect } from 'react';
 import { Trophy, Brain, DollarSign, Clock, Users, Zap, Target, Copy, Check, Sparkles, TrendingUp, Crown } from 'lucide-react';
 
-// Compact questions - 100 per category (400 total for demo)
 const questionsDB = {
   crypto: [
     {"q": "What does HODL mean?", "options": ["Hold On Dear Life", "Hold Or Don't Lose", "Digital Ledger", "Digital Leaders"], "correct": 0},
@@ -14,22 +14,7 @@ const questionsDB = {
     {"q": "USDC runs on?", "options": ["Bitcoin", "Ethereum", "Solana", "Multiple chains"], "correct": 3},
     {"q": "NFT stands for?", "options": ["New Financial Token", "Non-Fungible Token", "Network File", "Next Finance"], "correct": 1},
     {"q": "Ethereum gas is?", "options": ["Crypto type", "Transaction fee", "Mining reward", "Wallet type"], "correct": 1},
-    {"q": "Ethereum founder?", "options": ["Satoshi", "Vitalik Buterin", "Charles", "Gavin"], "correct": 1},
-    {"q": "Bitcoin block time?", "options": ["1 min", "5 min", "10 min", "30 min"], "correct": 2},
-    {"q": "Layer 2 solution?", "options": ["Ethereum", "Bitcoin", "Polygon", "Cardano"], "correct": 2},
-    {"q": "What is staking?", "options": ["Selling", "Locking for rewards", "Mining", "Trading"], "correct": 1},
-    {"q": "Blockchain is?", "options": ["Crypto type", "Distributed ledger", "Mining software", "Trading platform"], "correct": 1},
-    {"q": "Uniswap is?", "options": ["Blockchain", "DEX", "Wallet", "Mining pool"], "correct": 1},
-    {"q": "DEX stands for?", "options": ["Digital", "Decentralized Exchange", "Direct", "Distributed"], "correct": 1},
-    {"q": "MetaMask is?", "options": ["Blockchain", "Crypto wallet", "Mining software", "Exchange"], "correct": 1},
-    {"q": "Yield farming?", "options": ["Growing vegetables", "Earning via liquidity", "Mining Bitcoin", "Trading"], "correct": 1},
-    {"q": "FOMO means?", "options": ["Fear Of Missing Out", "Financial Option", "First Open Market", "Free Online"], "correct": 0},
-    {"q": "Crypto whale?", "options": ["Coin type", "Large holder", "Mining pool", "Trading bot"], "correct": 1},
-    {"q": "ICO stands for?", "options": ["Initial Coin Offering", "International Crypto", "Internal Coin", "Investment Coin"], "correct": 0},
-    {"q": "Hard fork is?", "options": ["Mining equipment", "Blockchain split", "Wallet type", "Trading strategy"], "correct": 1},
-    {"q": "Proof of Work?", "options": ["Employment", "Consensus via computation", "Trading proof", "Wallet auth"], "correct": 1},
-    {"q": "P2P means?", "options": ["Pay to Play", "Peer to Peer", "Profit to Price", "Platform Protocol"], "correct": 1},
-    {"q": "Token burn?", "options": ["Destroying tokens", "Selling", "Mining", "Trading"], "correct": 0}
+    {"q": "Ethereum founder?", "options": ["Satoshi", "Vitalik Buterin", "Charles", "Gavin"], "correct": 1}
   ],
   general: [
     {"q": "Capital of France?", "options": ["Lyon", "Marseille", "Paris", "Nice"], "correct": 2},
@@ -41,22 +26,7 @@ const questionsDB = {
     {"q": "Human bones?", "options": ["186", "206", "226", "246"], "correct": 1},
     {"q": "Capital of Japan?", "options": ["Osaka", "Kyoto", "Tokyo", "Hiroshima"], "correct": 2},
     {"q": "Romeo & Juliet author?", "options": ["Dickens", "Shakespeare", "Austen", "Twain"], "correct": 1},
-    {"q": "Largest mammal?", "options": ["Elephant", "Blue Whale", "Giraffe", "Bear"], "correct": 1},
-    {"q": "Speed of light?", "options": ["300,000 km/s", "150,000", "450,000", "600,000"], "correct": 0},
-    {"q": "H2O is?", "options": ["Hydrogen", "Water", "Oxygen", "Helium"], "correct": 1},
-    {"q": "Telephone inventor?", "options": ["Edison", "Tesla", "Bell", "Franklin"], "correct": 2},
-    {"q": "Solar system planets?", "options": ["7", "8", "9", "10"], "correct": 1},
-    {"q": "Longest river?", "options": ["Amazon", "Nile", "Yangtze", "Mississippi"], "correct": 1},
-    {"q": "First moon person?", "options": ["Aldrin", "Armstrong", "Gagarin", "Glenn"], "correct": 1},
-    {"q": "Capital of Italy?", "options": ["Milan", "Venice", "Rome", "Florence"], "correct": 2},
-    {"q": "Hexagon sides?", "options": ["5", "6", "7", "8"], "correct": 1},
-    {"q": "Largest desert?", "options": ["Sahara", "Arabian", "Antarctic", "Gobi"], "correct": 2},
-    {"q": "Sistine Chapel?", "options": ["da Vinci", "Michelangelo", "Raphael", "Botticelli"], "correct": 1},
-    {"q": "Capital Spain?", "options": ["Barcelona", "Madrid", "Valencia", "Seville"], "correct": 1},
-    {"q": "Hours in day?", "options": ["12", "20", "24", "28"], "correct": 2},
-    {"q": "Smallest prime?", "options": ["0", "1", "2", "3"], "correct": 2},
-    {"q": "1984 author?", "options": ["Orwell", "Huxley", "Bradbury", "Clarke"], "correct": 0},
-    {"q": "Capital Canada?", "options": ["Toronto", "Vancouver", "Montreal", "Ottawa"], "correct": 3}
+    {"q": "Largest mammal?", "options": ["Elephant", "Blue Whale", "Giraffe", "Bear"], "correct": 1}
   ],
   sports: [
     {"q": "Basketball players?", "options": ["4", "5", "6", "7"], "correct": 1},
@@ -68,22 +38,7 @@ const questionsDB = {
     {"q": "First Olympics?", "options": ["1892", "1896", "1900", "1904"], "correct": 1},
     {"q": "Baseball players?", "options": ["8", "9", "10", "11"], "correct": 1},
     {"q": "Most World Cups?", "options": ["Germany", "Argentina", "Brazil", "Italy"], "correct": 2},
-    {"q": "Marathon km?", "options": ["38", "40", "42", "44"], "correct": 2},
-    {"q": "Wimbledon sport?", "options": ["Cricket", "Tennis", "Golf", "Rugby"], "correct": 1},
-    {"q": "Olympic rings?", "options": ["3", "4", "5", "6"], "correct": 2},
-    {"q": "Max bowling?", "options": ["100", "200", "250", "300"], "correct": 3},
-    {"q": "Golf holes?", "options": ["9", "12", "18", "24"], "correct": 2},
-    {"q": "Soccer half?", "options": ["40", "45", "50", "60"], "correct": 1},
-    {"q": "The Greatest?", "options": ["Tyson", "Ali", "Mayweather", "Foreman"], "correct": 1},
-    {"q": "Tour de France?", "options": ["Running", "Cycling", "Swimming", "Car"], "correct": 1},
-    {"q": "Jordan titles?", "options": ["4", "5", "6", "7"], "correct": 2},
-    {"q": "Baseball bases?", "options": ["2", "3", "4", "5"], "correct": 2},
-    {"q": "NHL periods?", "options": ["2", "3", "4", "5"], "correct": 1},
-    {"q": "Grass Slam?", "options": ["Australian", "French", "Wimbledon", "US"], "correct": 2},
-    {"q": "Volleyball?", "options": ["5", "6", "7", "8"], "correct": 1},
-    {"q": "Hoop height?", "options": ["8ft", "9ft", "10ft", "11ft"], "correct": 2},
-    {"q": "Super Bowl?", "options": ["Basketball", "Baseball", "Football", "Hockey"], "correct": 2},
-    {"q": "Slam sets?", "options": ["2", "3", "4", "5"], "correct": 1}
+    {"q": "Marathon km?", "options": ["38", "40", "42", "44"], "correct": 2}
   ],
   gaming: [
     {"q": "Battle Royale?", "options": ["Fortnite", "PUBG", "Apex", "Warzone"], "correct": 1},
@@ -95,26 +50,11 @@ const questionsDB = {
     {"q": "Pokemon level?", "options": ["50", "75", "100", "150"], "correct": 2},
     {"q": "Kratos game?", "options": ["AC", "Dark Souls", "God of War", "DMC"], "correct": 2},
     {"q": "NPC means?", "options": ["New Player", "Non-Player Character", "Next Point", "Network"], "correct": 1},
-    {"q": "Vault Boy?", "options": ["Fallout", "Bioshock", "Metro", "Borderlands"], "correct": 0},
-    {"q": "Fortnite currency?", "options": ["Gold", "Credits", "V-Bucks", "Coins"], "correct": 2},
-    {"q": "Minecraft creator?", "options": ["Newell", "Notch", "Howard", "Spencer"], "correct": 1},
-    {"q": "RPG means?", "options": ["Real Player", "Role Playing Game", "Rapid Point", "Random"], "correct": 1},
-    {"q": "Still Alive?", "options": ["Half-Life", "Portal", "L4D", "TF"], "correct": 1},
-    {"q": "Gordon Freeman?", "options": ["John", "Gordon Freeman", "Morgan", "Jones"], "correct": 1},
-    {"q": "FPS means?", "options": ["First Person", "Frames Second", "Both", "Fast Paced"], "correct": 2},
-    {"q": "Block building?", "options": ["Roblox", "Minecraft", "Terraria", "All"], "correct": 3},
-    {"q": "LoL currency?", "options": ["RP", "BE", "IP", "LP"], "correct": 0},
-    {"q": "Riot owner?", "options": ["Activision", "EA", "Tencent", "Microsoft"], "correct": 2},
-    {"q": "Mario job?", "options": ["Chef", "Plumber", "Electrician", "Carpenter"], "correct": 1},
-    {"q": "Covenant?", "options": ["Mass Effect", "Halo", "Destiny", "Warframe"], "correct": 1},
-    {"q": "AFK means?", "options": ["Always Killing", "Away Keyboard", "After Kill", "All Friends"], "correct": 1},
-    {"q": "CJ game?", "options": ["GTA IV", "GTA SA", "GTA V", "Vice City"], "correct": 1},
-    {"q": "Fallout dog?", "options": ["Rex", "Dogmeat", "K-9", "Buddy"], "correct": 1},
-    {"q": "GG means?", "options": ["Get Good", "Good Game", "Going Great", "Game Glory"], "correct": 1}
+    {"q": "Fortnite currency?", "options": ["Gold", "Credits", "V-Bucks", "Coins"], "correct": 2}
   ]
 };
 
-const TriviArena = () => {
+export default function TriviArena() {
   const [screen, setScreen] = useState('home');
   const [mode, setMode] = useState(null);
   const [stake, setStake] = useState(null);
@@ -313,30 +253,89 @@ const TriviArena = () => {
     );
   }
 
-  if (screen === 'challenge-setup') {
+  if (screen === 'category') {
+    const cats = [
+      {id: 'crypto', name: 'Crypto/Web3', icon: '₿', color: 'from-orange-500 to-yellow-500'},
+      {id: 'general', name: 'General', icon: '🌍', color: 'from-blue-500 to-cyan-500'},
+      {id: 'sports', name: 'Sports', icon: '⚽', color: 'from-green-500 to-emerald-500'},
+      {id: 'gaming', name: 'Gaming', icon: '🎮', color: 'from-purple-500 to-pink-500'}
+    ];
     return (
       <div className="min-h-screen bg-slate-950 text-white p-6 pt-12">
         <button onClick={resetGame} className="text-slate-400 mb-8">← Back</button>
-        <div className="max-w-2xl mx-auto bg-slate-900/70 p-10 rounded-3xl border border-pink-500/50">
-          <Target className="w-8 h-8 text-pink-400 mb-4" />
-          <h2 className="text-3xl font-black mb-8">Create Challenge</h2>
-          <div className="space-y-6">
-            <div>
-              <label className="block text-sm font-bold mb-3">Stake Amount</label>
-              <div className="grid grid-cols-3 gap-3">
-                {[10, 50, 100].map(amount => (
-                  <button key={amount} onClick={() => setStake(amount)}
-                    className={`p-4 rounded-xl font-bold ${stake === amount ? 'bg-gradient-to-r from-pink-600 to-rose-600' : 'bg-slate-800'}`}>
-                    ${amount}
+        <h2 className="text-4xl font-black text-center mb-12">Choose Category</h2>
+        <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-6">
+          {cats.map(cat => (
+            <button key={cat.id} onClick={() => startQuiz(cat.id)}
+              className={`bg-gradient-to-br ${cat.color} p-10 rounded-3xl shadow-2xl hover:scale-105 transition`}>
+              <div className="text-7xl mb-4">{cat.icon}</div>
+              <div className="text-3xl font-black text-white">{cat.name}</div>
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (screen === 'quiz') {
+    const question = questions[currentQ];
+    const progress = ((currentQ + 1) / questions.length) * 100;
+    return (
+      <div className="min-h-screen bg-slate-950 text-white p-6">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex justify-between mb-8">
+            <span className="text-sm">Q {currentQ + 1}/{questions.length}</span>
+            <span className="text-xl font-black">{timeLeft}s</span>
+          </div>
+          <div className="w-full h-3 bg-slate-800 rounded-full mb-10">
+            <div className="h-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full" style={{width: `${progress}%`}}></div>
+          </div>
+          <div className="bg-slate-900/70 p-10 rounded-3xl mb-6">
+            <h3 className="text-3xl font-black mb-10">{question.q}</h3>
+            <div className="space-y-4">
+              {question.options.map((option, idx) => {
+                let bg = 'bg-slate-800';
+                if (answered) {
+                  if (idx === question.correct) bg = 'bg-green-600';
+                  else if (idx === selectedAnswer) bg = 'bg-red-600';
+                }
+                return (
+                  <button key={idx} onClick={() => handleAnswer(idx)} disabled={answered}
+                    className={`w-full p-6 rounded-2xl ${bg} text-left font-bold`}>
+                    {option}
                   </button>
-                ))}
-              </div>
+                );
+              })}
             </div>
-            <div>
-              <label className="block text-sm font-bold mb-3">Category</label>
-              <div className="grid grid-cols-2 gap-3">
-                {[{id: 'crypto', name: 'Crypto', icon: '₿'}, {id: 'general', name: 'General', icon: '🌍'},
-                  {id: 'sports', name: 'Sports', icon: '⚽'}, {id: 'gaming', name: 'Gaming', icon: '🎮'}].map(cat => (
-                  <button key={cat.id} onClick={() => setCategory(cat.id)}
-                    className={`p-4 rounded-xl font-bold flex items-center gap-3 ${category === cat.id ? 'bg-gradient-to-r from-pink-600 to-rose-600' : 'bg-slate-800'}`}>
-              
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (screen === 'result') {
+    const won = mode === 'practice' || score > opponentScore;
+    const winAmount = won && (mode === '1v1' || mode === 'challenge') ? stake * 1.9 : 0;
+    return (
+      <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center p-6">
+        <div className="max-w-3xl w-full text-center">
+          <Trophy className="w-16 h-16 text-green-400 mx-auto mb-6" />
+          <h2 className="text-5xl font-black mb-4">{won ? 'VICTORY!' : 'DEFEAT'}</h2>
+          {(mode === '1v1' || mode === 'challenge') && (
+            <div className="text-4xl font-black text-green-400 mb-8">
+              {won ? `+$${winAmount.toFixed(2)}` : `-$${stake}`}
+            </div>
+          )}
+          <div className="bg-slate-900/70 p-10 rounded-3xl mb-6">
+            <div className="text-5xl font-black text-green-400 mb-2">{score}/10</div>
+            <button onClick={resetGame} className="mt-8 w-full py-5 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl font-bold">
+              Play Again
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return null;
+     }
