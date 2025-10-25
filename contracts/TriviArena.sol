@@ -34,27 +34,22 @@ contract TriviArena {
     // ============ STRUCTS ============
     
     struct Challenge {
-        address challenger;      // User who created the challenge
-        address opponent;        // Challenged user
-        uint256 stake;          // Amount staked by each player
-        string category;        // Quiz category
-        uint256 createdAt;      // Timestamp of creation
-        uint256 expiresAt;      // Expiry timestamp (24h)
-        bool accepted;          // Has opponent accepted?
-        bool completed;         // Is game completed?
-        address winner;         // Winner address (0x0 if not decided)
-        bool refunded;          // Has refund been processed?
+        address challenger;
+        address opponent;
+        uint256 stake;
+        string category;
+        uint256 createdAt;
+        uint256 expiresAt;
+        bool accepted;
+        bool completed;
+        address winner;
+        bool refunded;
     }
     
     // ============ MAPPINGS ============
     
-    /// @notice Challenge ID to Challenge data
     mapping(uint256 => Challenge) public challenges;
-    
-    /// @notice User address to their active challenges
     mapping(address => uint256[]) public userChallenges;
-    
-    /// @notice User statistics
     mapping(address => UserStats) public userStats;
     
     struct UserStats {
@@ -134,11 +129,6 @@ contract TriviArena {
     
     // ============ EXTERNAL FUNCTIONS ============
     
-    /**
-     * @notice Create a new challenge
-     * @param _opponent Address of the opponent
-     * @param _category Quiz category
-     */
     function createChallenge(
         address _opponent,
         string memory _category
@@ -176,10 +166,6 @@ contract TriviArena {
         return challengeId;
     }
     
-    /**
-     * @notice Accept a challenge
-     * @param _challengeId ID of the challenge to accept
-     */
     function acceptChallenge(uint256 _challengeId) external payable {
         Challenge storage challenge = challenges[_challengeId];
         
@@ -196,11 +182,6 @@ contract TriviArena {
         emit ChallengeAccepted(_challengeId, msg.sender);
     }
     
-    /**
-     * @notice Submit game result and distribute prizes
-     * @param _challengeId ID of the completed challenge
-     * @param _winner Address of the winner
-     */
     function submitResult(
         uint256 _challengeId,
         address _winner
@@ -223,13 +204,11 @@ contract TriviArena {
         
         totalFeesCollected += platformFee;
         
-        // Update stats
         userStats[_winner].gamesWon++;
         userStats[_winner].totalEarned += winnerPrize;
         userStats[challenge.challenger].gamesPlayed++;
         userStats[challenge.opponent].gamesPlayed++;
         
-        // Transfer prize to winner
         (bool success, ) = payable(_winner).call{value: winnerPrize}("");
         if (!success) revert TransferFailed();
         
@@ -241,10 +220,6 @@ contract TriviArena {
         );
     }
     
-    /**
-     * @notice Refund expired challenge
-     * @param _challengeId ID of the expired challenge
-     */
     function refundExpiredChallenge(uint256 _challengeId) external {
         Challenge storage challenge = challenges[_challengeId];
         
@@ -267,9 +242,6 @@ contract TriviArena {
         );
     }
     
-    /**
-     * @notice Withdraw collected platform fees
-     */
     function withdrawFees() external onlyOwner {
         uint256 amount = totalFeesCollected;
         if (amount == 0) revert NoFeesToWithdraw();
@@ -284,10 +256,6 @@ contract TriviArena {
     
     // ============ VIEW FUNCTIONS ============
     
-    /**
-     * @notice Get challenge details
-     * @param _challengeId Challenge ID
-     */
     function getChallenge(uint256 _challengeId)
         external
         view
@@ -296,10 +264,6 @@ contract TriviArena {
         return challenges[_challengeId];
     }
     
-    /**
-     * @notice Get user's challenges
-     * @param _user User address
-     */
     function getUserChallenges(address _user)
         external
         view
@@ -308,10 +272,6 @@ contract TriviArena {
         return userChallenges[_user];
     }
     
-    /**
-     * @notice Get user statistics
-     * @param _user User address
-     */
     function getUserStats(address _user)
         external
         view
@@ -320,10 +280,6 @@ contract TriviArena {
         return userStats[_user];
     }
     
-    /**
-     * @notice Check if challenge is active
-     * @param _challengeId Challenge ID
-     */
     function isChallengeActive(uint256 _challengeId)
         external
         view
@@ -337,10 +293,6 @@ contract TriviArena {
         );
     }
     
-    /**
-     * @notice Calculate winner prize for a stake amount
-     * @param _stake Stake amount
-     */
     function calculateWinnerPrize(uint256 _stake)
         external
         pure
